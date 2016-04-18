@@ -531,6 +531,26 @@
          <div class="row">
 
             <div class="eight columns">
+			
+			<?php 
+				if(isset($_POST['submit'])){
+				$to = "naineesharao@gmail.com"; // this is your Email address
+				$from = $_POST['contactEmail']; // this is the sender's Email address
+				$contactName = $_POST['contactName'];
+				
+				$subject = "Form submission";
+				$subject2 = "Copy of your form submission";
+				$message = $contactName . " wrote the following:" . "\n\n" . $_POST['contactMessage'];
+				$message2 = "Here is a copy of your message " . $contactName . "\n\n" . $_POST['contactMessage'];
+
+				$headers = "From:" . $from;
+				$headers2 = "From:" . $to;
+				mail($to,$subject,$message,$headers);
+				mail($from,$subject2,$message2,$headers2); // sends a copy of the message to the sender
+				echo "Mail Sent. Thank you " . $contactName . ", we will contact you shortly.";
+				// You can also use header('Location: thank_you.php'); to redirect to another page.
+				}
+?>
 
                <!-- form -->
                <form action="" method="post" id="contactForm" name="contactForm">
@@ -546,10 +566,6 @@
 						   <input type="text" value="" size="35" id="contactEmail" name="contactEmail">
                   </div>
 
-                  <div>
-						   <label for="contactSubject">Subject</label>
-						   <input type="text" value="" size="35" id="contactSubject" name="contactSubject">
-                  </div>
 
                   <div>
                      <label for="contactMessage">Message <span class="required">*</span></label>
